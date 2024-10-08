@@ -1,11 +1,11 @@
-@extends ('layouts.mastersite')
+@extends ('base')
  @section ('title', 'tous nos biens') 
 
- @section ('content')
+ @section ('content')post
 
 <div class="bg-light p-5 mb-5 text-center">
 
-<form action="" method="get" class="container d-flex gap-2">
+<form action="" method="post" class="container d-flex gap-2">
 
 <input type="number" placeholder="Surface minimale" class="form-control" name="surface" value="{{ $input['surface'] ?? '' }}">
 

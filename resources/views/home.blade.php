@@ -1,4 +1,4 @@
-@extends('layouts.masteradmin')
+@extends('base')
 
 @section('content')
     <div class="bg-light p-5 mb-5 text-center">

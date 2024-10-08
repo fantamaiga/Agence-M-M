@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProprieteContactRequest;
 
 define('LARAVEL_START', microtime(true));
 

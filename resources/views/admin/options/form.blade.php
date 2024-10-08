@@ -1,5 +1,4 @@
-@extends ('layouts.masteradmin')
-
+@extends ('base')
 @section('title', $option->exists ? "Editer une option" : "Créer une option")
 
 @section('content')

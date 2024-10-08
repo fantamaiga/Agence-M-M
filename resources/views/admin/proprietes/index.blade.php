@@ -1,4 +1,4 @@
-@extends('layouts.masteradmin')
+@extends('base')
 @section('title')Gestion des biens @endsection
 @section('content')
 <div class="d-flex justify-content-between align-items-center">
@@ -33,7 +33,7 @@
                     <a href="{{ route('admin.propriete.edit', $propriete->id) }}" class="btn btn-primary">Éditer</a>
 
                     <!-- Formulaire de suppression -->
-                    <form action="{{ route('admin.propriete.destroy', $propriete->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce bien ?');">
+                    <form action="{{ route('admin.propriete.destroy', $propriete->id) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce bien ?');">
                         @csrf
                         @method("DELETE")
                         <button type="submit" class="btn btn-danger">Supprimer</button>

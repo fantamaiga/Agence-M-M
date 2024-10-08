@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-    <title>@yield('title')</title>
+    <title>@yield('title') | Administration</title>
     
     <!-- Lien vers Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Optionnel : Lien vers Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-</head>
+  <style>
+    @layer reset{
+ button {
+  all:unsel;
+ }
+}
+</style>
+  </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
  <div class="container-fluid">
     <a class="navbar-brand" href="#">Agence</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,30 +40,26 @@
           <a href="{{route('admin.option.index')}}" @class(['nav-link', 'active' => str_contains($route, 'option.')])>Gérer les options</a>
         </li>
       </ul>
+     <div class="ms-auto"> 
+      @auth
+      <ul class="navbar-nav">
+      <li class="nav-item"> 
+        <form action="{{ route ('logout')}}" method="post">
+          @csrf
+          @method('delete')
+          <button class="nav-link">Se déconnecter</button>
+        </form>
+      </li>
+      </ul>
+    </div>
     </div>
  </div>
 </nav>
 
 <div class="container mt-5">
-
-    <!-- Affichage du message de succès -->
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <!-- Affichage des messages d'erreur -->
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="my-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
    
+@include('shared.flash')
+
     @yield('content')
 
 </div>

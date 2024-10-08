@@ -1,4 +1,4 @@
-@extends ('layouts.masteradmin')
+@extends ('base')
 
 @section('title', $propriete->exists ? "Editer un bien" : "Créer un bien")
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Propriete;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchProprieteRequest;
-use App\Models\Propriete;
+use App\Http\Requests\ProprieteContactRequest;
 
 class ProprieteController extends Controller
 {
@@ -43,15 +44,24 @@ class ProprieteController extends Controller
       ]);
    }
 
-   public function show(string $slug, Propriete $bien)
+   public function show(string $slug, Propriete $propriete)
    {
-      $expectedslug = $propriete->getslug();
-      if ($slug == $expectedslug) {
-         return to_route('propriete.show', ['slug' => $expectedslug, 'propriete' => $propriete]);
-      }
-      return view('propriete.show', [
-         'propriete' => $propriete
-      ]);
+       $expectedslug = $propriete->getslug();
+   
+       if ($slug !== $expectedslug) {
+           return redirect()->route('propriete.show', ['slug' => $expectedslug, 'propriete' => $propriete]);
+       }
+   
+       return view('propriete.show', [
+           'propriete' => $propriete
+       ]);
    }
+   
+   public function contact(Propriete $propriete, ProprieteContactRequest $request)
+   {
+       Mail::send(new PropieteContactMail($propriete, $request->validated()));
+       return back()->with('success', 'Votre message a été envoyé avec succès');
+   }
+   
 }
 
