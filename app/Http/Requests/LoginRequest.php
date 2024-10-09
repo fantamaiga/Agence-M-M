@@ -11,7 +11,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Autoriser toutes les requêtes pour l'instant
     }
 
     /**
@@ -22,8 +22,23 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' =>['required', 'email'],
-            'password' =>['required', 'min:4']
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:4'], // Assurez-vous que le mot de passe est une chaîne
+        ];
+    }
+
+    /**
+     * Get the custom validation messages for the rules.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'L\'adresse e-mail est requise.',
+            'email.email' => 'Veuillez entrer une adresse e-mail valide.',
+            'password.required' => 'Le mot de passe est requis.',
+            'password.min' => 'Le mot de passe doit contenir au moins 4 caractères.',
         ];
     }
 }

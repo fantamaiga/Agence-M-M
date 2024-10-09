@@ -14,5 +14,14 @@ class Option extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom'];
+        'nom',
+    ];
+
+    /**
+     * The properties that belong to the option.
+     */
+    public function proprietes(): BelongsToMany
+    {
+        return $this->belongsToMany(Propriete::class);
+    }
 }

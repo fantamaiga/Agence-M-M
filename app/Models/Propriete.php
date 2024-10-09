@@ -23,16 +23,34 @@ class Propriete extends Model
         'prix',
         'ville',
         'quartier',
-        'statut'
+        'statut',
     ];
 
+    /**
+     * The options that belong to the property.
+     */
     public function options(): BelongsToMany
     {
         return $this->belongsToMany(Option::class);
     }
 
+    /**
+     * Get the slug for the property based on its title.
+     *
+     * @return string
+     */
     public function getSlug(): string
     {
         return Str::slug($this->titre);
     }
+
+    // Optional: Add validation rules in a boot method or other relevant places
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    // 
+    //     static::creating(function ($model) {
+    //         // Add validation logic here
+    //     });
+    // }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Propriete; // Assurez-vous d'importer le modèle Propriete
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -29,7 +30,7 @@ class ProprieteContactMail extends Mailable
         return new Envelope(
             to: 'admin@mm.com',
             replyTo: $this->data['email'],
-            subject: 'Propriete Contact Mail',
+            subject: 'Demande de contact pour la propriété : ' . $this->propriete->titre, // Ajout du titre de la propriété
         );
     }
 
@@ -39,7 +40,7 @@ class ProprieteContactMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: '==emails.propriete.contact',
+            markdown: 'emails.propriete.contact', // Correction de la syntaxe
         );
     }
 

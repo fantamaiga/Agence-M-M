@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Propriete; 
+
+use App\Models\Propriete;
 use Illuminate\Http\Request;
 
-class HomeController
+class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the latest properties on the homepage.
      */
     public function index()
     {
+        // Récupérer les 4 dernières propriétés créées
         $proprietes = Propriete::orderBy('created_at', 'desc')->limit(4)->get();
+
+        // Retourner la vue avec les propriétés récupérées
         return view('home', ['proprietes' => $proprietes]);
     }
 
@@ -20,7 +24,7 @@ class HomeController
      */
     public function create()
     {
-        //
+        // Code pour afficher un formulaire de création
     }
 
     /**
@@ -28,7 +32,7 @@ class HomeController
      */
     public function store(Request $request)
     {
-        //
+        // Code pour gérer la sauvegarde des nouvelles ressources
     }
 
     /**
@@ -36,7 +40,7 @@ class HomeController
      */
     public function show(string $id)
     {
-        //
+        // Code pour afficher une ressource spécifique
     }
 
     /**
@@ -44,7 +48,7 @@ class HomeController
      */
     public function edit(string $id)
     {
-        //
+        // Code pour afficher un formulaire d'édition
     }
 
     /**
@@ -52,7 +56,7 @@ class HomeController
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Code pour mettre à jour une ressource spécifique
     }
 
     /**
@@ -60,6 +64,6 @@ class HomeController
      */
     public function destroy(string $id)
     {
-        //
+        // Code pour supprimer une ressource spécifique
     }
 }

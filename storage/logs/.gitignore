@@ -1,2 +1,27 @@
 *
 !.gitignore
+# Laravel
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/storage/*.log
+/.env
+/.env.*
+/phpunit.xml
+/phpunit.xml.dist
+
+# IDEs
+/.idea
+/.vscode
+.DS_Store
+Thumbs.db
+
+# Autres
+/.history
+*.sublime-workspace
+*.sublime-project
+
+# Cache
+/.cache

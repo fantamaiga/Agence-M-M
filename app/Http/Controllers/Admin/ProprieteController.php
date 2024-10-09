@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\Propriete;
 use App\Models\Option;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Admin\ProprieteFormRequest;
-use App\Http\Controllers\Admin\fill;
-
 
 class ProprieteController extends Controller
 {
@@ -16,9 +14,8 @@ class ProprieteController extends Controller
      */
     public function index()
     {
-        return view('admin.proprietes.index',[
-            'proprietes' => Propriete::orderBy
-             ('created_at', 'desc')->paginate(25)
+        return view('admin.proprietes.index', [
+            'proprietes' => Propriete::orderBy('created_at', 'desc')->paginate(25)
         ]);
     }
 
@@ -27,10 +24,8 @@ class ProprieteController extends Controller
      */
     public function create()
     {
-        // Créer une nouvelle instance du modèle Propriete
+        // Créer une nouvelle instance de Propriete avec des valeurs par défaut
         $propriete = new Propriete();
-
-        // Utiliser la méthode fill sur l'instance du modèle $propriete
         $propriete->fill([
             'surface' => 40,
             'nombre_pieces' => 3,
@@ -38,24 +33,26 @@ class ProprieteController extends Controller
             'num_etage' => 0,
             'ville' => 'Conakry',
             'quartier' => 'Kobaya',
-            'statut' => false, 
+            'statut' => false,
         ]);
+
         return view('admin.proprietes.form', [
             'propriete' => $propriete,
             'options' => Option::pluck('nom', 'id'),
         ]);
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(ProprieteFormRequest $request)
     {
+        // Créer et associer les options à la propriété
         $propriete = Propriete::create($request->validated());
         $propriete->options()->sync($request->validated('options'));
+
         return to_route('admin.propriete.index')
-            ->with('success', 'Bien créée avec succès');
+            ->with('success', 'Bien créé avec succès');
     }
 
     /**
@@ -66,7 +63,6 @@ class ProprieteController extends Controller
         return view('admin.proprietes.form', [
             'propriete' => $propriete,
             'options' => Option::pluck('nom', 'id'),
-
         ]);
     }
 
@@ -75,9 +71,12 @@ class ProprieteController extends Controller
      */
     public function update(ProprieteFormRequest $request, Propriete $propriete)
     {
+        // Mettre à jour et synchroniser les options
         $propriete->update($request->validated());
         $propriete->options()->sync($request->validated('options'));
-        return to_route('admin.propriete.index')->with('success', 'Bien modifié avec succès');
+
+        return to_route('admin.propriete.index')
+            ->with('success', 'Bien modifié avec succès');
     }
 
     /**
@@ -86,6 +85,8 @@ class ProprieteController extends Controller
     public function destroy(Propriete $propriete)
     {
         $propriete->delete();
-        return to_route('admin.propriete.index')->with('success', 'Bien suprimé avec succès');
+
+        return to_route('admin.propriete.index')
+            ->with('success', 'Bien supprimé avec succès');
     }
 }

@@ -1,24 +1,18 @@
 @extends ('base')
- @section ('title', 'tous nos biens') 
 
- @section ('content')post
+@section ('title', 'Tous nos biens')
+
+@section ('content')
 
 <div class="bg-light p-5 mb-5 text-center">
-
-<form action="" method="post" class="container d-flex gap-2">
-
-<input type="number" placeholder="Surface minimale" class="form-control" name="surface" value="{{ $input['surface'] ?? '' }}">
-
-<input type="number" placeholder="Nombre de pièce min" class="form-control" name="nombre_pieces" value="{{ $input['nombre_pieces'] ?? '' }}">
-
-<input type="number" class="form-control" name="prix" placeholder="Budget max" value="{{ $input['prix'] ?? '' }}">
-
-<input type="text" placeholder="Mot clé" class="form-control" name="titre" value="{{ $input['titre'] ?? '' }}">
-
-<button class="btn btn-primary btn-sm flex-grow-0"> Rechercher</button>
-</form>
-
-
+    <form action="" method="post" class="container d-flex gap-2">
+        @csrf
+        <input type="number" placeholder="Surface minimale" class="form-control" name="surface" value="{{ $input['surface'] ?? '' }}">
+        <input type="number" placeholder="Nombre de pièces min" class="form-control" name="nombre_pieces" value="{{ $input['nombre_pieces'] ?? '' }}">
+        <input type="number" class="form-control" name="prix" placeholder="Budget max" value="{{ $input['prix'] ?? '' }}">
+        <input type="text" placeholder="Mot clé" class="form-control" name="titre" value="{{ $input['titre'] ?? '' }}">
+        <button class="btn btn-primary btn-sm flex-grow-0">Rechercher</button>
+    </form>
 </div>
 
 <div class="container">
@@ -34,10 +28,8 @@
         @endforelse
     </div>
     <div class="my-4">
-       {{ $proprietes->links() }}
+        {{ $proprietes->links() }}
     </div>
 </div>
 
-</div>
-
- @endsection
+@endsection

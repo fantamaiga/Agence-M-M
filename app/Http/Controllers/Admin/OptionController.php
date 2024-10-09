@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Option;
-use App\Models\Propriete;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\Admin\OptionFormRequest;
 
+use App\Models\Option;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OptionFormRequest;
 
 class OptionController extends Controller
 {
@@ -15,7 +13,7 @@ class OptionController extends Controller
      */
     public function index()
     {
-        return view('admin.options.index',[
+        return view('admin.options.index', [
             'options' => Option::paginate(25)
         ]);
     }
@@ -26,20 +24,17 @@ class OptionController extends Controller
     public function create()
     {
         // Créer une nouvelle instance du modèle Option
-        $option = new Option();
-        // Retourner la vue avec l'instance $option
         return view('admin.options.form', [
-            'option' => $option
+            'option' => new Option()
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(OptionFormRequest $request)
     {
-        $option = Option::create($request->validated());
+        Option::create($request->validated());
 
         return to_route('admin.option.index')
             ->with('success', 'L\'option a été créée avec succès');
@@ -61,7 +56,9 @@ class OptionController extends Controller
     public function update(OptionFormRequest $request, Option $option)
     {
         $option->update($request->validated());
-        return to_route('admin.option.index')->with('success', 'L\'option a été modifié avec succès');
+
+        return to_route('admin.option.index')
+            ->with('success', 'L\'option a été modifiée avec succès');
     }
 
     /**
@@ -70,6 +67,8 @@ class OptionController extends Controller
     public function destroy(Option $option)
     {
         $option->delete();
-        return to_route('admin.option.index')->with('success', 'L\'option a été suprimé avec succès');
+
+        return to_route('admin.option.index')
+            ->with('success', 'L\'option a été supprimée avec succès');
     }
 }
