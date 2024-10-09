@@ -11,7 +11,7 @@
         <h1>404</h1>
         <h2>Page non trouvée</h2>
         <p>Désolé, la page que vous recherchez n'existe pas.</p>
-        <a href="{{ url('/') }}">Retour à l'accueil</a>
+        <a href="{{ route('home') }}">Retour à l'accueil</a>
     </div>
 </body>
 </html>
