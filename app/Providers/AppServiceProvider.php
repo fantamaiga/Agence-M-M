@@ -26,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
         // Utiliser Bootstrap 5 pour la pagination
         Paginator::useBootstrapFive();
 
-        // Autres initialisations si nécessaire
+        $this->routes(function () {
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/web.php'));
+        });
     }
     public function map()
 {
@@ -49,5 +53,6 @@ protected function mapApiRoutes()
          ->namespace($this->namespace)
          ->group(base_path('routes/api.php'));
 }
+
 
 }
